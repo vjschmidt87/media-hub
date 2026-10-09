@@ -1,5 +1,0 @@
-com/mediahub/dto/SearchSettingsDto.class
-com/mediahub/entity/SearchSettings.class
-com/mediahub/dto/LoginRequest.class
-com/mediahub/dto/CrawlerSourceDto.class
-com/mediahub/repository/SearchSettingsRepository.class
