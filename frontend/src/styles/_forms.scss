@@ -1,0 +1,77 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-3xl;
+}
+
+.form-label {
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  @include form-input-base;
+  background-color: var(--input-bg);
+  color: var(--text);
+  border-color: var(--border);
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px $primary-alpha-15;
+  }
+
+  &::placeholder {
+    color: var(--text-secondary);
+  }
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-lg center;
+  padding-right: $spacing-4xl;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-error {
+  font-size: $font-size-sm;
+  color: $danger;
+  margin-top: $spacing-xs;
+}
+
+.form-hint {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  margin-top: $spacing-xs;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $primary;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: $font-size-md;
+    color: var(--text);
+  }
+}

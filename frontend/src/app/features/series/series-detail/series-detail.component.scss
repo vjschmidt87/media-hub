@@ -1,0 +1,192 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.series-page {
+  background: var(--bg);
+  padding: $spacing-4xl 0;
+  min-height: 100%;
+}
+
+.container {
+  @include container;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: $primary;
+  font-size: $font-size-md;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: $spacing-3xl;
+  font-weight: 500;
+
+  &:hover { text-decoration: underline; }
+}
+
+.series-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: $spacing-5xl;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.poster-wrapper {
+  position: sticky;
+  top: calc($header-height + $spacing-xl);
+}
+
+.poster {
+  width: 100%;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+}
+
+.poster-placeholder {
+  width: 100%;
+  aspect-ratio: 2/3;
+  @include flex-center;
+  background: var(--bg-secondary);
+  border-radius: $border-radius-lg;
+  font-size: 4rem;
+  border: 1px solid var(--border);
+}
+
+.series-meta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+}
+
+.type-badge {
+  padding: $spacing-xs $spacing-lg;
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &.type-anime { background: $primary-light; color: $primary-dark; }
+  &.type-series { background: $info-light; color: $info-text; }
+  &.type-movie { background: $accent-light; color: $accent-dark; }
+  &.type-all { background: $success-light; color: $success-text; }
+}
+
+.year {
+  font-size: $font-size-md;
+  color: var(--text-secondary);
+}
+
+.series-title {
+  font-size: $font-size-4xl;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 $spacing-xl;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+}
+
+.genre-chip {
+  padding: $spacing-xs $spacing-lg;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+}
+
+.description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: $spacing-3xl;
+}
+
+.watchlist-actions {
+  margin-bottom: $spacing-4xl;
+}
+
+.in-watchlist-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-base $spacing-2xl;
+  background: $success-light;
+  color: $success-text;
+  border-radius: $border-radius;
+  font-weight: 500;
+  font-size: $font-size-md;
+}
+
+.episodes-section h2 {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: $spacing-3xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 2px solid $primary;
+  display: inline-block;
+}
+
+.season-group {
+  margin-bottom: $spacing-4xl;
+}
+
+.season-header {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: $spacing-xl;
+}
+
+.episode-list {
+  @include flex-column;
+  gap: $spacing-md;
+}
+
+.episode-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  padding: $spacing-lg $spacing-xl;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: $border-radius;
+  transition: $transition;
+
+  &:hover {
+    border-color: $primary-light;
+    box-shadow: $shadow-sm;
+  }
+}
+
+.ep-badge {
+  flex-shrink: 0;
+  padding: $spacing-xs $spacing-md;
+  background: $primary-alpha-10;
+  color: $primary;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.ep-title {
+  flex: 1;
+  font-size: $font-size-md;
+  color: var(--text);
+  @include text-truncate;
+}
+
+.ep-duration {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}

@@ -1,0 +1,146 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.watchlist-page {
+  background: var(--bg);
+  padding: $spacing-4xl 0;
+  min-height: 100%;
+}
+
+.container {
+  @include container;
+}
+
+.page-title {
+  font-size: $font-size-4xl;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: $spacing-4xl;
+}
+
+.empty-state {
+  @include empty-state;
+
+  .empty-icon { font-size: 4rem; }
+  button { margin-top: $spacing-3xl; }
+}
+
+.watchlist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-3xl;
+
+  @include laptop { grid-template-columns: repeat(2, 1fr); }
+  @include tablet { grid-template-columns: 1fr; }
+}
+
+.entry-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $primary-light;
+  }
+}
+
+.entry-poster {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.poster-placeholder {
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+  background: var(--bg-secondary);
+  font-size: 3rem;
+  min-height: 120px;
+}
+
+.entry-info {
+  padding: $spacing-xl;
+  flex: 1;
+  @include flex-column;
+  gap: $spacing-md;
+}
+
+.entry-title {
+  font-size: $font-size-default;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  @include line-clamp(2);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: $spacing-xs $spacing-lg;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.status-plan_to_watch { background: $gray-100; color: $gray-600; }
+  &.status-watching { background: $info-light; color: $info-text; }
+  &.status-completed { background: $success-light; color: $success-text; }
+}
+
+.progress-section {
+  @include flex-column;
+  gap: $spacing-xs;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: $border-radius-full;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, $primary, $primary-dark);
+  border-radius: $border-radius-full;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: $font-size-xs;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.entry-actions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: auto;
+  padding-top: $spacing-md;
+}
+
+.status-select {
+  flex: 1;
+  padding: $spacing-xs $spacing-md;
+  border: 1px solid var(--border);
+  border-radius: $border-radius;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: $font-size-sm;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+}

@@ -1,0 +1,182 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: $shadow-sm;
+  height: $header-height;
+}
+
+.header-inner {
+  @include flex-between;
+  @include container;
+  height: 100%;
+}
+
+.logo {
+  @include flex-center;
+  gap: $spacing-md;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: $font-size-xl;
+  color: var(--text);
+
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+
+  &-icon {
+    font-size: $font-size-2xl;
+  }
+
+  &-text {
+    background: linear-gradient(135deg, $primary, $primary-dark);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.nav-link {
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius;
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: $transition;
+
+  &:hover {
+    color: $primary;
+    background: $primary-alpha-10;
+    text-decoration: none;
+  }
+
+  &.active {
+    color: $primary;
+    background: $primary-alpha-10;
+  }
+
+  &--admin {
+    color: $accent-dark;
+
+    &:hover, &.active {
+      color: $accent-dark;
+      background: rgba($accent, 0.1);
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius;
+  background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: $font-size-lg;
+  @include flex-center;
+  transition: $transition;
+
+  &:hover {
+    background: var(--hover-bg);
+  }
+}
+
+.lang-toggle {
+  padding: $spacing-xs $spacing-lg;
+  border-radius: $border-radius-full;
+  background: $primary-alpha-10;
+  border: 1px solid $primary-alpha-20;
+  color: $primary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $primary-alpha-20;
+  }
+}
+
+.username {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.btn-logout {
+  padding: $spacing-xs $spacing-lg;
+  border-radius: $border-radius;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: $font-size-sm;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $danger-light;
+    color: $danger;
+    border-color: $danger-border;
+  }
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-md;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: $transition;
+  }
+}
+
+@include tablet {
+  .nav {
+    display: none;
+    position: absolute;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: $spacing-xl;
+    gap: $spacing-md;
+
+    &.open {
+      display: flex;
+    }
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

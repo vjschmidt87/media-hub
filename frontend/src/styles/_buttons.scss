@@ -1,0 +1,64 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.btn {
+  @include btn-base;
+  cursor: pointer;
+}
+
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-secondary {
+  @include btn-secondary;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+
+  &:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+  }
+}
+
+.btn-danger {
+  @include btn-base;
+  background-color: $danger;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: $danger-dark;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: $gray-300;
+    cursor: not-allowed;
+  }
+}
+
+.btn-ghost {
+  @include btn-base;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+
+  &:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+    color: var(--text);
+  }
+}
+
+.btn-sm {
+  padding: $spacing-xs $spacing-lg;
+  font-size: $font-size-sm;
+}
+
+.btn-lg {
+  padding: $spacing-lg $spacing-4xl;
+  font-size: $font-size-lg;
+}
+
+.btn-full {
+  width: 100%;
+}

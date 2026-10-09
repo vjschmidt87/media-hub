@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: media-hub-db
+    environment:
+      POSTGRES_DB: mediahub
+      POSTGRES_USER: mediahub
+      POSTGRES_PASSWORD: mediahub123
+    ports:
+      - "5441:5432"
+    volumes:
+      - media_hub_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediahub -d mediahub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - media-hub-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: media-hub-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mediahub
+      SPRING_DATASOURCE_USERNAME: mediahub
+      SPRING_DATASOURCE_PASSWORD: mediahub123
+      JWT_SECRET: ${JWT_SECRET:-media-hub-secret-key-must-be-at-least-256-bits-long-for-hs256-algorithm}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-vjschmidt}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-M3d!aHub@Vj#2025}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-vjschmidt@mediahub.local}
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8091:8091"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8091/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - media-hub-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: media-hub-frontend
+    ports:
+      - "4211:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - media-hub-net
+
+volumes:
+  media_hub_pgdata:
+    name: media_hub_pgdata
+
+networks:
+  media-hub-net:
+    driver: bridge
